@@ -22,7 +22,8 @@ const eventSchema = new mongoose.Schema({
         required: 'users are required',
     },
     createdBy: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
         required: 'Createdby is required'
     }
 }, { timestamps: true })

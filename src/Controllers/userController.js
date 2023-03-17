@@ -2,23 +2,7 @@ const userModel = require("../Models/userModel");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
-const checkforbody = function (value) {
-  let check = Object.keys(value).length > 0;
-  return check;
-};
-
-const validDetail = function (value) {
-  if (typeof value === "undefined" || typeof value === "null") {
-    return false;
-  }
-  if (value.trim().length == 0) {
-    return false;
-  }
-  if (typeof value === "string" && value.trim().length > 0) {
-    return true;
-  }
-};
+const {checkforbody, validDetail} = require('../Validator/validate')
 
 const registerUser = async (req, res) => {
   try {
