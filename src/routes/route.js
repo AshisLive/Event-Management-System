@@ -4,7 +4,8 @@ const {registerUser, loginUser, logOutUser} = require('../Controllers/userContro
 const {} = require('../Controllers/eventController');
 const {activityToken, emailValidator} = require('../Middleware/loginmiddleware');
 
-router.post('/createUser', emailValidator ,registerUser);
-router.post('/loginAPI', emailValidator ,loginUser);
+router.post('/user/createUser', emailValidator ,registerUser);
+router.post('/user/login', emailValidator ,loginUser);
+router.post('/user/logout', emailValidator ,loginUser);
 
 module.exports = router;
