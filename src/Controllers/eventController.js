@@ -1,6 +1,6 @@
 const eventModel = require("../Models/eventModel");
 const mongoose = require("mongoose");
-const { checkforbody, validDetail } = require("../Validator/validate");
+const { checkforbody, validDetail, isValid } = require("../Validator/validate");
 
 const createEvent = async (req, res) => {
   try {
@@ -64,4 +64,31 @@ const getEventById = async (req, res) => {
   }
 };
 
-module.exports = { createEvent, showEventInvite, showEventList, getEventById };
+const updateEventById = async (req, res) => {
+  try {
+    let eventId = req.query.eventId;
+    const requestBody = req.body;
+    const { title, description, date, users } = requestBody;
+    const filterQuery = {};
+    if (isValid(title)) {
+        filterQuery['title'] = title;
+    }
+    if (isValid(description)) {
+        filterQuery['description'] = description;
+    }
+    if (isValid(date)) {
+        filterQuery['date'] = date;
+    }
+    if (!(typeof users === "undefined" || typeof users === "null")) {
+        filterQuery['users'] = users;
+    }
+    const updatedEvent = await eventModel.findOneAndUpdate({ _id: eventId }, filterQuery, { new: true });
+    return res
+      .status(201)
+      .send({ status: true, msg: "successfully created", data: updatedEvent });
+  } catch (error) {
+    res.status(500).send({ status: false, message: error.message });
+  }
+};
+
+module.exports = { createEvent, showEventInvite, showEventList, getEventById, updateEventById };

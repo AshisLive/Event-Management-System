@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {registerUser, loginUser, logOutUser} = require('../Controllers/userController');
-const {createEvent, showEventInvite, showEventList, getEventById} = require('../Controllers/eventController');
+const {createEvent, showEventInvite, showEventList, getEventById, updateEventById} = require('../Controllers/eventController');
 const {activityToken, emailValidator} = require('../Middleware/loginmiddleware');
 
 //User
@@ -14,5 +14,6 @@ router.post('/event/createEvent', createEvent);
 router.get('/event/showEventInvite', showEventInvite);
 router.get('/event/showEventList', showEventList);
 router.get('/event/getEventById', getEventById);
+router.put('/event/updateEvent', updateEventById);
 
 module.exports = router;
